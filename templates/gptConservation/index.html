@@ -68,12 +68,13 @@
         </style>
     </head>
 <body>
+    {% load markdown_deux_tags %}
     <h1>생성형 AI의 대화 창구</h1>
     <h2>대화 내역</h2>
     <div id="conversation-container">
         {% for conversation in conversation_history %}
-            <p><strong>당신:</strong> {{ conversation.user_input }}</p>
-            <p><strong>인공지능:</strong> {{ conversation.bot_response }}</p>
+            <p><strong>당신:</strong> {{ conversation.user_input |markdown }}</p>
+            <p><strong>인공지능:</strong> {{ conversation.bot_response |markdown}}</p>
             <hr>
         {% endfor %}
     </div>
