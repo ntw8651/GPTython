@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Generative AI Conversation</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                background-color: #f9f9f9;
+                margin: 0;
+                padding: 0;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+            }
+            h1 {
+                margin-top: 20px;
+            }
+            form {
+                width: 80%;
+                margin-bottom: 20px;
+            }
+            textarea {
+                width: 100%;
+                height: 50px; /* 세로 길이를 줄임 */
+                resize: none;
+                padding: 10px;
+                font-size: 16px;
+                border: 1px solid #ccc;
+                border-radius: 5px;
+            }
+            button {
+                display: block;
+                width: 100px;
+                padding: 10px;
+                margin: 10px auto;
+                background-color: #4CAF50;
+                color: white;
+                border: none;
+                border-radius: 5px;
+                cursor: pointer;
+            }
+            button:hover {
+                background-color: #45a049;
+            }
+            #conversation-container {
+                width: 80%;
+                max-height: 400px; /* 필요한 경우 높이를 조정하세요 */
+                overflow-y: auto;
+                border: 1px solid #ccc;
+                padding: 10px;
+                background-color: white;
+                border-radius: 5px;
+            }
+            .conversation {
+                margin-bottom: 10px;
+            }
+            .user, .bot {
+                margin: 5px 0;
+            }
+            .user {
+                font-weight: bold;
+            }
+            .bot {
+                margin-left: 20px;
+                color: #555;
+            }
+        </style>
+    </head>
+<body>
+    <h1>생성형 AI의 대화 창구</h1>
+    <h2>대화 내역</h2>
+    <div id="conversation-container">
+        {% for conversation in conversation_history %}
+            <p><strong>당신:</strong> {{ conversation.user_input }}</p>
+            <p><strong>인공지능:</strong> {{ conversation.bot_response }}</p>
+            <hr>
+        {% endfor %}
+    </div>
+    <form method="post">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">보내기</button>
+    </form>
+    
+    <script>
+        // 페이지 로드 시 스크롤을 맨 아래로 이동
+        window.onload = function() {
+            var conversationContainer = document.getElementById('conversation-container');
+            conversationContainer.scrollTop = conversationContainer.scrollHeight;
+        }
+    </script>
+</body>
+</html>
